@@ -1,36 +1,28 @@
-import MySQLdb
+#!/usr/bin/python3
+"""
+    Python script to list all states from a database hbtn_0e_0_usa
+"""
+
 import sys
+import MySQLdb
 
-def list_states(username, password, database_name):
-    # Connect to the MySQL server
-    db = MySQLdb.connect(host="localhost", port=3306, user=username, passwd=password, db=database_name)
-
-    # Create a cursor object to interact with the database
-    cursor = db.cursor()
-
-    # Execute the query to retrieve states from the database
-    query = "SELECT * FROM states ORDER BY id"
-    cursor.execute(query)
-
-    # Fetch all the results
-    results = cursor.fetchall()
-
-    # Close the cursor and the database connection
-    cursor.close()
-    db.close()
-
-    # Print the results
-    for row in results:
-        print(row)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("Usage: python script_name.py mysql_username mysql_password database_name")
-        sys.exit(1)
+    db_conn = MySQLdb.connect(
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3],
+        host='localhost',
+        port=3306
+    )
 
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database_name = sys.argv[3]
+    cur = db_conn.cursor()
 
-    list_states(username, password, database_name)
+    cur.execute("SELECT * FROM states ORDER BY id ASC")
+    states = cur.fetchall()
 
+    for state in states:
+        print(state)
+
+    cur.close()
+    db_conn.close()
