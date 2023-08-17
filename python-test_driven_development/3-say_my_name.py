@@ -27,13 +27,13 @@ def say_my_name(first_name, last_name=""):
         return print("My name is {} {}".format(first_name, last_name))
 
 
-# say_my_name("Pascal", "Mugisha")
-# say_my_name("Blessing")
+# say_my_name("Emmanuel", "Obolo")
+# say_my_name("Abiodun")
 # say_my_name()
-# say_my_name(2, "Chance")
+# say_my_name(2, "Asaph")
 # say_my_name(2, 2.25)
 # say_my_name(None)
 # say_my_name([2, 4, 5, 6, 8])
-# say_my_name({"name": "Mugisha"})
+# say_my_name({"name": "obolo"})
 # say_my_name((1, 4, 5))
-# say_my_name("Chance", 34)
+# say_my_name("Asaph", 34)
