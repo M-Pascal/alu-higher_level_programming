@@ -10,5 +10,4 @@ if __name__ == "__main__":
     json_dictionary = Base.to_json_string([dictionary])
     print(dictionary)
     print(type(dictionary))
-    print(json_dictionary)
-    print(type(json_dictionary))
+    print(json_dicti)
