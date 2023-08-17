@@ -185,4 +185,3 @@ class Base:
                 return new_object_list
         except FileNotFoundError:
             return []
-        
