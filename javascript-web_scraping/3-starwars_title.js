@@ -1,7 +1,14 @@
 #!/usr/bin/node
 
 const https = require('https');
-const url = `https://swapi-api.alx-tools.com/api/films/${process.argv[2]}`;
+
+if (process.argv.length !== 3) {
+  console.error('Usage: script.js <movie_id>');
+  process.exit(1);
+}
+
+const movieId = process.argv[2];
+const url = `https://swapi-api.alx-tools.com/api/films/${movieId}`;
 
 https.get(url, (res) => {
   let data = '';
@@ -15,7 +22,7 @@ https.get(url, (res) => {
       const movie = JSON.parse(data);
       console.log(`Episode ${movie.episode_id}: ${movie.title}`);
     } else {
-      console.log(`Movie with ID ${process.argv[2]} not found.`);
+      console.error(`Movie with ID ${movieId} not found.`);
     }
   });
 }).on('error', (err) => {
