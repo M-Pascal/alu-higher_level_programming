@@ -9,6 +9,7 @@ function closeFd (fd) {
   });
 }
 
+
 if (argv[2]) {
   fs.open(argv[2], 'w', (err, fd) => {
     if (err) {
