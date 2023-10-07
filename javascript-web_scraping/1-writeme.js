@@ -1,19 +1,30 @@
 #!/usr/bin/node
-
+const { argv } = require('process');
 const fs = require('fs');
 
-if (process.argv.length !== 4) {
-  console.error('Usage: ./1-writeme.js <file_path> <string_to_write>');
-  process.exit(1);
+/*
+ In this case, I'm also working asynchronously, but I'll be using three async functions: OPEN, WRITE(FD, STRING[, POSITION[, ENCODING]], and CALLBACK), and then the CLOSE.
+*/
+
+function closeFd (fd) {
+  fs.close(fd, (err) => {
+    if (err) console.log(err);
+  });
 }
 
-const filePath = process.argv[2];
-const content = process.argv[3];
-
-fs.writeFile(filePath, content, 'utf-8', (err) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(`Content has been written to ${filePath}`);
-  }
-});
+if (argv[2]) {
+  fs.open(argv[2], 'w', (err, fd) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    fs.write(fd, argv[3], (err, written, string) => {
+      if (err) {
+        console.log(err);
+      }
+      closeFd(fd);
+    });
+  });
+} else {
+  console.log('An error occurred no file(path) was given');
+}
