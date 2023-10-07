@@ -1,22 +1,19 @@
 #!/usr/bin/node
-const request = require('request');
-const { argv } = require('process');
 
-/*We only need to generate the options argument object literal alone because the uri or url is a command line argument.
-*/
+const fs = require('fs');
 
-const options = {
-  method: 'GET',
-  uri: argv[2]
-};
-
-if (argv[2]) {
-  request(argv[2], options, (error, response, body) => {
-    if (error) {
-      console.log(error);
-    }
-    console.log(`code: ${response.statusCode}`);
-  });
-} else {
-  console.log('An error occured missing url command line arg.');
+if (process.argv.length !== 4) {
+  console.error('Usage: script.js <file_path> <string_to_write>');
+  process.exit(1);
 }
+
+const filePath = process.argv[2];
+const content = process.argv[3];
+
+fs.writeFile(filePath, content, 'utf-8', (err) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(`The content has been written to ${filePath}`);
+  }
+});
